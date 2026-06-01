@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBS Case Study — Anna</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --ink: #1A1A18;
+    --ink-2: #5A5A56;
+    --ink-3: #9A9A94;
+    --accent: #2B4EFF;
+    --accent-pale: #EEF1FF;
+    --accent-mid: #8899FF;
+    --warn: #E85D26;
+    --warn-pale: #FEF0EA;
+    --green: #1D9E75;
+    --green-pale: #E1F5EE;
+    --border: rgba(26,26,24,0.1);
+    --border-strong: rgba(26,26,24,0.18);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px 120px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    max-width: 720px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-2);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .meta-value {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* STAT STRIP */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 72px;
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 24px 28px;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 72px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent-pale);
+    max-width: 40px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+
+  p {
+    color: var(--ink-2);
+    margin-bottom: 16px;
+    max-width: 660px;
+  }
+
+  p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* CONTEXT CARDS */
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .context-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+
+  .context-card-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .context-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .context-card p {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* PROBLEM BLOCK */
+  .problem-list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .problem-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+    background: var(--warn-pale);
+    border: 1px solid rgba(232,93,38,0.15);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .problem-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--warn);
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .problem-text h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .problem-text p {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+    line-height: 1.5;
+  }
+
+  /* INSIGHT CALLOUT */
+  .insight {
+    background: var(--accent-pale);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 32px 0;
+  }
+
+  .insight-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .insight p {
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* SOLUTION CARDS */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .solution-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .sol-before, .sol-after {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sol-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .sol-before .sol-label {
+    background: #FEF0EA;
+    color: var(--warn);
+  }
+
+  .sol-after .sol-label {
+    background: var(--green-pale);
+    color: var(--green);
+  }
+
+  .sol-before p, .sol-after p {
+    font-size: 13px;
+    margin: 0;
+    max-width: none;
+    line-height: 1.55;
+  }
+
+  .sol-divider {
+    width: 1px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  .solution-card .sol-title {
+    grid-column: 1 / -1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .solution-full {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* PROCESS TIMELINE */
+  .timeline {
+    margin-top: 28px;
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border-strong);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    outline: 1.5px solid var(--accent);
+  }
+
+  .tl-item h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .tl-item p {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 580px;
+    line-height: 1.55;
+  }
+
+  /* OUTCOMES */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .outcome-card {
+    background: var(--green-pale);
+    border: 1px solid rgba(29,158,117,0.15);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+
+  .outcome-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #085041;
+    margin-bottom: 6px;
+  }
+
+  .outcome-card p {
+    font-size: 13px;
+    color: #0F6E56;
+    margin: 0;
+    max-width: none;
+    line-height: 1.5;
+  }
+
+  /* LEARNINGS */
+  .learning-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .learning-item {
+    display: flex;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .learning-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-pale);
+    border: 1.5px solid var(--accent-mid);
+    flex-shrink: 0;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .learning-item p {
+    font-size: 14px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: none;
+    line-height: 1.6;
+  }
+
+  .learning-item p strong {
+    color: var(--ink);
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 56px 0;
+  }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    font-size: 12px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    margin-top: 64px;
+  }
+
+  /* SCREENSHOT PLACEHOLDER */
+  .screen-mock {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    margin: 28px 0;
+    overflow: hidden;
+  }
+
+  .screen-mock-bar {
+    background: #F0EDE8;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .screen-mock-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+
+  .screen-mock-url {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-left: 8px;
+    font-family: monospace;
+  }
+
+  .screen-mock-body {
+    padding: 20px 24px;
+    font-size: 12px;
+    color: var(--ink-2);
+    background: #FAFAFA;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .solution-card { grid-template-columns: 1fr; }
+    .solution-full { grid-template-columns: 1fr; }
+    .context-grid { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .sol-divider { display: none; }
+  }
+
+  /* QUOTE */
+  .pull-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.4;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 40px 0;
+    max-width: 640px;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    color: var(--ink-2);
+  }
+
+  /* IVR diagram mini */
+  .ivr-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 24px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .ivr-node {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    text-align: center;
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  .ivr-node.start {
+    background: var(--accent-pale);
+    border-color: var(--accent-mid);
+  }
+
+  .ivr-node.end {
+    background: var(--green-pale);
+    border-color: rgba(29,158,117,0.3);
+  }
+
+  .ivr-node .node-label {
+    font-size: 10px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .ivr-node .node-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .ivr-arrow {
+    color: var(--ink-3);
+    font-size: 18px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Case Study · NBS Platform</div>
+    <h1>Redesigning a back-office system for operators who don't speak "tech"</h1>
+    <p class="hero-sub">How I untangled a legacy CRM serving ultra-Orthodox communities in Israel — where buying groceries over the phone is still the norm, and every interaction had to work without assumptions.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Sole Product Designer (B2B + B2C)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Duration</span>
+        <span class="meta-value">1 year, ongoing (part-time)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Platform</span>
+        <span class="meta-value">Web Admin (B2B), Consumer site Shoppi (B2C)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Market</span>
+        <span class="meta-value">Israel — ultra-Orthodox sector</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-number">10+</div>
+      <div class="stat-desc">Modules designed or redesigned — new sections built from scratch alongside ongoing rework of existing ones</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">150+</div>
+      <div class="stat-desc">IVR call-flow steps mapped and redesigned across the new phone tree module</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">2</div>
+      <div class="stat-desc">Parallel surfaces maintained: B2B admin panel and B2C consumer storefront (Shoppi)</div>
+    </div>
+  </div>
+  <p style="font-size: 13px; color: var(--ink-3); margin-top: 12px; margin-bottom: 56px; padding-left: 4px;">This case study focuses on three of the most complex modules — IVR, Mailing, and Categories — as representative examples of the broader design work.</p>
+
+  <!-- CONTEXT -->
+  <div class="section">
+    <div class="section-label">01 — Context</div>
+    <h2>A platform built for people who didn't grow up with a mouse in their hand</h2>
+    <p>NBS is an Israeli B2B e-commerce platform serving municipalities, grocery stores, and community organizations — with one very specific audience constraint: <strong>many of their end customers are ultra-Orthodox Jews</strong> who don't use smartphones, avoid the internet on religious grounds, and in some cases can't leave the house to shop.</p>
+    <p>To serve them, NBS built a hybrid commerce system: a web storefront (Shoppi, B2C) for those comfortable online, and an IVR phone-ordering system for everyone else. When you call, a voice menu reads product categories, prices, and promotions — you press numbers to navigate and place orders.</p>
+    <p>The B2B admin panel is where stores, municipalities, and events businesses configure everything: products, categories, promotions, IVR phone trees, and email campaigns. That admin panel is what I worked on.</p>
+
+    <div class="context-grid">
+      <div class="context-card">
+        <span class="context-card-icon">🏪</span>
+        <h4>B2B clients</h4>
+        <p>Grocery stores, municipalities, community centers — often managed by non-technical staff who needed to configure complex logic themselves.</p>
+      </div>
+      <div class="context-card">
+        <span class="context-card-icon">📞</span>
+        <h4>IVR as primary channel</h4>
+        <p>For a significant portion of the audience, the phone tree isn't a fallback. It's the only channel. This made IVR configuration mission-critical.</p>
+      </div>
+      <div class="context-card">
+        <span class="context-card-icon">🧩</span>
+        <h4>Stitched-together system</h4>
+        <p>When I joined, the product was a live mix of a decade-old legacy UI and a newer redesign — sometimes both visible on the same page.</p>
+      </div>
+      <div class="context-card">
+        <span class="context-card-icon">🔒</span>
+        <h4>No direct user access</h4>
+        <p>Due to language barriers and cultural norms, I couldn't speak to end users directly. All user insight came through the PM, who acted as a critical bridge.</p>
+      </div>
+    </div>
+
+    <div class="insight" style="margin-top: 32px;">
+      <div class="insight-label">Scope of work</div>
+      <p>This case study focuses on three modules where the design challenges were most distinct. But in practice, my work was continuous and broad — redesigning existing sections (product management, customer profiles, sales flows), adding new features to live modules, refining interactions based on ongoing client feedback, and maintaining consistency across a system that was still partly legacy. New and existing were always in parallel.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-label">02 — The Problem</div>
+    <h2>Admins were building phone experiences blind</h2>
+    <p>The IVR module was the most technically complex — and the most broken from a UX standpoint. B2B admins had to configure phone trees of <strong>150+ steps</strong>, but the interface gave them almost no visibility into the logic they were creating.</p>
+
+    <p>A recurring pattern emerged across almost every module: the initial request was always "we need more options." But when I dug into the actual pain points through the PM, the real issue was almost never missing data — it was <strong>missing clarity about the data already there</strong>. That shift in framing shaped how I approached the redesign.</p>
+
+    <div class="problem-list">
+      <div class="problem-item">
+        <div class="problem-num">1</div>
+        <div class="problem-text">
+          <h4>Navigation blindness in large trees</h4>
+          <p>In a 150+ step IVR, if step 1 leads to step 180, an admin had to manually scroll through a flat table to understand what step 180 does. There was no way to "follow" a path.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">2</div>
+        <div class="problem-text">
+          <h4>No "incoming" context</h4>
+          <p>Admins could see where a step goes — but not which other steps point to it. Debugging logic or making changes without this was like editing a map with no compass.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">3</div>
+        <div class="problem-text">
+          <h4>Silent audio cascade failures</h4>
+          <p>One audio recording could be used across 10 different IVR steps. Replacing it would silently update all 10 — including ones where the new recording made no sense. Admins had no warning this would happen.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">4</div>
+        <div class="problem-text">
+          <h4>Code-speak in the interface</h4>
+          <p>Transition rules showed developer codes like <code>go_tz</code>, <code>n_r</code>, <code>not_active_owner</code>. For a non-technical store manager, these were meaningless — and dangerous to misconfigure.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">5</div>
+        <div class="problem-text">
+          <h4>Edit-mode disorientation</h4>
+          <p>When clicking "Edit", the layout would restructure entirely — fields would disappear, reorder, or change type compared to the view mode. Admins repeatedly lost their place mid-task.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- APPROACH -->
+  <div class="section">
+    <div class="section-label">03 — My Approach</div>
+    <h2>Designing without direct access to users — and making it work</h2>
+    <p>I couldn't run usability tests with the actual users. The community's norms made direct access impossible, and there was a real language barrier on top of that. So I adapted.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <h4>PM as research proxy</h4>
+        <p>I worked closely with the PM to structure the feedback she was collecting from clients. I pushed to understand not just "what they complained about" but the specific moment in the workflow where confusion happened. This became my primary qualitative data.</p>
+      </div>
+      <div class="tl-item">
+        <h4>PRD as ethnographic document</h4>
+        <p>The PRD contained deep business logic — product types, constraint rules, IVR flow logic, billing behaviour. I read it as a proxy for observing user workflows, tracing every edge case to understand what could go wrong in real admin use.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Reframing the brief</h4>
+        <p>The initial ask was often "add more fields." I tried to bring the conversation back to first principles: is the problem missing information — or missing clarity about information already there? Making that case to the PM and stakeholders shifted several design directions significantly.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Multiple variants, structured decision-making</h4>
+        <p>For each major flow, I produced 2–3 meaningful alternatives — not just visual variations, but different structural approaches. This gave the PM and stakeholders a basis for real decisions rather than approval theatre.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Advocating for user control within technical constraints</h4>
+        <p>In Categories, the PM wanted to restrict certain edit actions to simplify backend work. I made the case that removing control from users doesn't reduce errors — it just makes them unrecoverable. We worked through the implications together and landed on a design that gave users the flexibility they needed while keeping the technical scope manageable.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SOLUTION IVR -->
+  <div class="section">
+    <div class="section-label">04a — Solution · IVR Module</div>
+    <h2>Making a phone tree readable by humans</h2>
+    <p>I redesigned the IVR module across four interconnected sections: the Records library (audio files), the Functions library (backend logic blocks), the Rules/Tree view (the step-by-step phone flow), and a new Product Assignments view showing which audio recordings are used across which products.</p>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="sol-title">Navigating a 150-step tree</div>
+        <div class="solution-full">
+          <div class="sol-before">
+            <span class="sol-label">Before</span>
+            <p>Flat table, numbered rows only. To understand where step 180 leads, you manually scroll through 179 rows. No visible relationship between steps.</p>
+          </div>
+          <div class="sol-after">
+            <span class="sol-label">After</span>
+            <p>Each step shows its name, description, and destination steps inline. Inline labels replace numeric IDs. Admins can trace logic by reading, not scrolling.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="sol-title">The silent audio cascade problem</div>
+        <div class="solution-full">
+          <div class="sol-before">
+            <span class="sol-label">Before</span>
+            <p>Replacing a recording updated it everywhere it was used, with no warning. Admins discovered the mistake only after customers called in confused.</p>
+          </div>
+          <div class="sol-after">
+            <span class="sol-label">After</span>
+            <p>New "Update Record Assignment" modal: shows current usage, lets admins choose to apply the change globally or only to specific selected steps. A complete replacement for blind bulk edits.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="sol-title">Translating developer codes to admin language</div>
+        <div class="solution-full">
+          <div class="sol-before">
+            <span class="sol-label">Before</span>
+            <p>Transition conditions shown as raw codes: <code>go_tz → 3</code>, <code>n_r → 180</code>, <code>not_active_owner → 997</code>. Meaningful to developers. Dangerous to admins.</p>
+          </div>
+          <div class="sol-after">
+            <span class="sol-label">After</span>
+            <p>Functions displayed with human-readable descriptions ("Verify caller ID against registered number"). Transition targets show step names, not just IDs. Progressive disclosure hides advanced logic.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-card">
+        <div class="sol-title">Edit-mode disorientation</div>
+        <div class="solution-full">
+          <div class="sol-before">
+            <span class="sol-label">Before</span>
+            <p>Clicking Edit reshuffled the layout entirely. Fields changed order, some disappeared. Admins lost their place every time and sometimes edited the wrong field.</p>
+          </div>
+          <div class="sol-after">
+            <span class="sol-label">After</span>
+            <p>View and edit modes maintain identical field order and structure. Changes are highlighted inline. State is preserved — admins always know where they are.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">"The real design challenge wasn't making it prettier — it was making the consequences of every action visible before the admin committed to it."</div>
+  </div>
+
+  <!-- SOLUTION CATEGORIES -->
+  <div class="section">
+    <div class="section-label">04b — Solution · Categories Module</div>
+    <h2>Three-level hierarchies without three levels of confusion</h2>
+    <p>Categories in NBS work across two surfaces simultaneously: the product browsing tree on Shoppi (B2C), and the IVR phone menu structure. That means a wrong category configuration breaks both the website and the phone experience at once.</p>
+    <p>The challenge: businesses needed to manage up to three levels of hierarchy — a top-level department, a mid-level category, and a subcategory — while the backend had real constraints on how products could be moved between levels after the fact.</p>
+
+    <h3>The specific problem</h3>
+    <p>If an admin added products directly to a top-level category (no subcategories yet), and later wanted to create subcategories to reorganise — there was no path to move those products. They were stranded at the top level.</p>
+    <p>My solution: when a subcategory is created under a category that already has direct products, the system immediately prompts the admin to select which products to migrate into the new subcategory. The backend handles the rest — products are grouped internally even if the admin doesn't create a formal subcategory for each group. The admin stays in control without needing to understand the data model.</p>
+
+    <div class="two-col">
+      <div class="context-card">
+        <h4>Pattern: steppers for complex creation</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Heavily loaded creation flows (products, sales, categories) were restructured using step indicators. Breaking the flow into named stages reduced cognitive load and helped admins orient themselves within long forms.</p>
+      </div>
+      <div class="context-card">
+        <h4>Pattern: tabs for dense view pages</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Product view pages with many associated data types (recordings, notes, constraints, assignments) were reorganised into tabbed layouts. This eliminated the "wall of fields" that made admins hesitant to edit anything.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION MAILING -->
+  <div class="section">
+    <div class="section-label">04c — Solution · Mailing Module</div>
+    <h2>Email campaigns, built from nothing</h2>
+    <p>Before I joined, B2B clients had no way to send marketing or operational emails from within NBS. Communication happened outside the system entirely. The Mailing module was a greenfield build.</p>
+    <p>I designed the full end-to-end flow: template creation, mailing group management, sending flows (both "start from a template" and "start from a group"), and a per-email statistics dashboard.</p>
+
+    <div class="two-col">
+      <div class="context-card">
+        <h4>Two sending entry points</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Admins could start from an email template (then pick recipients) or start from a mailing group (then pick a template). Both paths felt natural, and neither blocked the other.</p>
+      </div>
+      <div class="context-card">
+        <h4>Statistics that teach</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Per-email stats show open rate, click rate, delivery status, and engagement timeline. Admins can see if a promotional email drove results — and learn what works for this audience specifically.</p>
+      </div>
+    </div>
+
+    <div class="insight" style="margin-top: 24px;">
+      <div class="insight-label">What this unlocked</div>
+      <p>For the first time, B2B clients could measure whether their communications were landing. A store could see that 108 out of 224 recipients opened a Passover sale email — and 27 marked it as spam, a signal to revisit tone and content for this community.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- OUTCOMES -->
+  <div class="section">
+    <div class="section-label">05 — Outcomes</div>
+    <h2>Qualitative signals, honestly reported</h2>
+    <p>Formal A/B testing wasn't possible in this environment. The outcomes below are drawn from PM feedback from client-facing conversations, stakeholder reactions, and observable changes in how the system was used.</p>
+
+    <p>Feedback came through the PM from both sides of the platform — B2B administrators configuring the system, and business owners (B2C-facing clients) using it to manage their day-to-day operations.</p>
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <h4>IVR navigation clarity</h4>
+        <p>Stakeholders reported that IVR configuration became significantly easier to understand and explain to new client administrators after the redesign.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Audio cascade issue resolved</h4>
+        <p>The new "Update Record Assignment" flow eliminated the class of errors where a recording change silently broke unrelated IVR steps.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>First email analytics capability</h4>
+        <p>Mailing module introduced measurable communication for the first time — clients could now see open rates, clicks, and unsubscribes per campaign.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Category management unblocked</h4>
+        <p>The product migration flow at subcategory creation resolved a previously unrecoverable workflow — admins could reorganise without losing products.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Product management feels structured</h4>
+        <p>Small and mid-sized business owners reported via the PM that managing products had become noticeably more organised. Clear information hierarchy and consistent editing patterns made day-to-day updates faster and less error-prone.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- LEARNINGS -->
+  <div class="section">
+    <div class="section-label">06 — What I Learned</div>
+    <h2>Reflections</h2>
+
+    <div class="learning-list">
+      <div class="learning-item">
+        <div class="learning-marker">1</div>
+        <p><strong>Constraints breed creativity in research.</strong> Not having access to users forced me to develop richer ways of extracting insight — from PRDs, from PM conversations, from edge cases in business logic. It made me a more resourceful researcher.</p>
+      </div>
+      <div class="learning-item">
+        <div class="learning-marker">2</div>
+        <p><strong>"Add more fields" is almost never the answer.</strong> Across every module, the pattern held: the request was for more options, the real problem was lack of clarity about existing ones. Learning to surface this reframe early saved multiple false-start design cycles.</p>
+      </div>
+      <div class="learning-item">
+        <div class="learning-marker">3</div>
+        <p><strong>Reducing features doesn't reduce confusion for non-technical users.</strong> Many of the platform's administrators aren't comfortable with computers to begin with. Limiting what they can do doesn't improve their experience — it removes their sense of control, which makes things worse. I kept coming back to this when advocating for richer functionality over simplified but restrictive flows.</p>
+      </div>
+      <div class="learning-item">
+        <div class="learning-marker">4</div>
+        <p><strong>Legacy systems teach you about real user behaviour at scale.</strong> Working on a product with years of accumulated decisions — some good, some not — gave me an understanding of how design debt compounds, and why consistency in edit/view state is worth defending every single time.</p>
+      </div>
+      <div class="learning-item">
+        <div class="learning-marker">5</div>
+        <p><strong>If I could do it again:</strong> I'd push earlier for even lightweight usability proxies — even if that meant structured written questionnaires via the PM, or session recordings with client admins who were comfortable being observed. The cultural constraints were real, but not absolute.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tag-row">
+    <span class="tag">B2B Admin Systems</span>
+    <span class="tag">IVR / Voice UX</span>
+    <span class="tag">Complex Domain Design</span>
+    <span class="tag">RTL &amp; Israeli Market</span>
+    <span class="tag">Greenfield Module Design</span>
+    <span class="tag">Legacy System Redesign</span>
+    <span class="tag">Accessibility-adjacent</span>
+  </div>
+
+  <div class="footer-note">
+    NBS platform · Confidential work · Selected screens available on request · Anna, Product Designer
+  </div>
+
+</div>
+</body>
+</html>
