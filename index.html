@@ -920,6 +920,9 @@
     <p>Categories in NBS serve three things at once: product browsing on Shoppi (B2C), the internal ordering of products within the catalogue, and the phone menu structure for IVR callers. Neither surface had a proper category system. I was building it from scratch — for all three, at once.</p>
     <p>The core constraint: display order isn't just a sort preference — it's the key a caller presses in the phone menu. The audio recordings themselves are managed separately for now, but the structure set here already shapes the IVR experience. That made every structural decision higher-stakes than a typical admin table — and connecting these modules properly is planned for the next iteration.</p>
 
+    <p>The hierarchy is flexible. Products can be added at any level where no sub-sections exist — department, category, or sub-category. A business with a small inventory can place products directly in a department without creating unnecessary levels.</p>
+    <p>One rule: levels can't be mixed. If a department already has categories inside, products can't be added directly to it — and vice versa.</p>
+
     <div class="three-col">
       <div class="context-card">
         <h4>Pattern: Two interaction modes in one table</h4>
