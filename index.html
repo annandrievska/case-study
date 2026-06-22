@@ -655,6 +655,12 @@
     gap: 24px;
     margin-top: 20px;
   }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
@@ -785,6 +791,20 @@
           <p>When clicking "Edit", the layout would restructure entirely — fields would disappear, reorder, or change type compared to the view mode. Admins repeatedly lost their place mid-task.</p>
         </div>
       </div>
+      <div class="problem-item">
+        <div class="problem-num">6</div>
+        <div class="problem-text">
+          <h4>Missing foundations</h4>
+          <p>Beyond IVR, two other modules had foundational gaps. The admin panel had no category management system at all — no unified place to create or control the hierarchy that structures both Shoppi product browsing and the IVR phone tree. And there was no email capability whatsoever: B2B clients communicated with their customers entirely outside the platform, with no way to measure whether any of it worked.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">7</div>
+        <div class="problem-text">
+          <h4>The chicken-and-egg creation problem</h4>
+          <p>To configure a transition in a recording, admins needed to point it at an existing IVR step. But if that step didn't exist yet, they had to abandon the current flow, go create the step separately, then return and finish the transition. There was no way to create a missing step in context — every gap in the tree broke the creation flow.</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -800,6 +820,10 @@
       <div class="tl-item">
         <h4>PM as research proxy</h4>
         <p>I worked closely with the PM to structure the feedback she was collecting from clients. I pushed to understand not just "what they complained about" but the specific moment in the workflow where confusion happened. This became my primary qualitative data.</p>
+      </div>
+      <div class="tl-item">
+        <h4>Building the feedback loop from scratch</h4>
+        <p>There was no structured way to capture user pain points when I joined. I pushed for support to start documenting client complaints — categorised by module and workflow stage. This hadn't been done before. It became the primary quantitative signal for prioritisation across the redesign.</p>
       </div>
       <div class="tl-item">
         <h4>PRD as ethnographic document</h4>
@@ -893,21 +917,21 @@
   <div class="section">
     <div class="section-label">04b — Solution · Categories Module</div>
     <h2>Three-level hierarchies without three levels of confusion</h2>
-    <p>Categories in NBS work across two surfaces simultaneously: the product browsing tree on Shoppi (B2C), and the IVR phone menu structure. That means a wrong category configuration breaks both the website and the phone experience at once.</p>
-    <p>The challenge: businesses needed to manage up to three levels of hierarchy — a top-level department, a mid-level category, and a subcategory — while the backend had real constraints on how products could be moved between levels after the fact.</p>
+    <p>Categories in NBS serve three things at once: product browsing on Shoppi (B2C), the internal ordering of products within the catalogue, and the phone menu structure for IVR callers. Neither surface had a proper category system. I was building it from scratch — for all three, at once.</p>
+    <p>The core constraint: display order isn't just a sort preference — it's the key a caller presses in the phone menu. The audio recordings themselves are managed separately for now, but the structure set here already shapes the IVR experience. That made every structural decision higher-stakes than a typical admin table — and connecting these modules properly is planned for the next iteration.</p>
 
-    <h3>The specific problem</h3>
-    <p>If an admin added products directly to a top-level category (no subcategories yet), and later wanted to create subcategories to reorganise — there was no path to move those products. They were stranded at the top level.</p>
-    <p>My solution: when a subcategory is created under a category that already has direct products, the system immediately prompts the admin to select which products to migrate into the new subcategory. The backend handles the rest — products are grouped internally even if the admin doesn't create a formal subcategory for each group. The admin stays in control without needing to understand the data model.</p>
-
-    <div class="two-col">
+    <div class="three-col">
       <div class="context-card">
-        <h4>Pattern: steppers for complex creation</h4>
-        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Heavily loaded creation flows (products, sales, categories) were restructured using step indicators. Breaking the flow into named stages reduced cognitive load and helped admins orient themselves within long forms.</p>
+        <h4>Pattern: Two interaction modes in one table</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">The main list uses an expandable accordion — not a tree panel, not nested pages. Clicking the ▶ arrow expands child rows inline for a quick overview. Clicking the name navigates to a dedicated detail page for management actions. Two distinct interactions, two distinct intents — surfaced in the same table.</p>
       </div>
       <div class="context-card">
-        <h4>Pattern: tabs for dense view pages</h4>
-        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Product view pages with many associated data types (recordings, notes, constraints, assignments) were reorganised into tabbed layouts. This eliminated the "wall of fields" that made admins hesitant to edit anything.</p>
+        <h4>Pattern: Display order as read-only IVR key</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">The order number is shown as a read-only badge, not an editable input. It doubles as the phone key callers press to navigate — changing it affects the live menu. Reordering is a deliberate separate mode, not an accidental inline edit.</p>
+      </div>
+      <div class="context-card">
+        <h4>Pattern: Smart deactivation</h4>
+        <p style="font-size:13px; color: var(--ink-2); max-width:none; margin:0;">Deactivating a category with active products triggers a modal with a forced choice: reassign products to another category, or deactivate them too. No silent data loss — the system requires a conscious decision before anything disappears.</p>
       </div>
     </div>
   </div>
@@ -938,9 +962,18 @@
 
   <hr class="divider">
 
+  <!-- HOW I MEASURED -->
+  <div class="section">
+    <div class="section-label">05 — How I Measured</div>
+    <h2>How I measured</h2>
+    <p>Formal A/B testing and instrumented analytics weren't available in this environment. I worked with two proxies: a support complaint log I set up from scratch (the first structured feedback channel on the project), and structural workflow analysis — mapping the exact steps required for a task before and after each redesign. Where the PM reported qualitative improvement, I could often trace it to a specific, countable reduction in steps or decision points.</p>
+  </div>
+
+  <hr class="divider">
+
   <!-- OUTCOMES -->
   <div class="section">
-    <div class="section-label">05 — Outcomes</div>
+    <div class="section-label">06 — Outcomes</div>
     <h2>Qualitative signals, honestly reported</h2>
     <p>Formal A/B testing wasn't possible in this environment. The outcomes below are drawn from PM feedback from client-facing conversations, stakeholder reactions, and observable changes in how the system was used.</p>
 
@@ -959,12 +992,16 @@
         <p>Mailing module introduced measurable communication for the first time — clients could now see open rates, clicks, and unsubscribes per campaign.</p>
       </div>
       <div class="outcome-card">
-        <h4>Category management unblocked</h4>
-        <p>The product migration flow at subcategory creation resolved a previously unrecoverable workflow — admins could reorganise without losing products.</p>
+        <h4>Category management</h4>
+        <p>Built from scratch as a dual-purpose structure: it organises product browsing on Shoppi and maps directly to the IVR phone tree. Display order = the key a caller presses. Admins can now manage all three levels of the hierarchy from one panel without losing context.</p>
       </div>
       <div class="outcome-card">
         <h4>Product management feels structured</h4>
         <p>Small and mid-sized business owners reported via the PM that managing products had become noticeably more organised. Clear information hierarchy and consistent editing patterns made day-to-day updates faster and less error-prone.</p>
+      </div>
+      <div class="outcome-card">
+        <h4>Research infrastructure established</h4>
+        <p>There was no structured way to collect user feedback before this project. By the end, support was documenting complaints by module, giving the team its first reliable signal for prioritisation.</p>
       </div>
     </div>
   </div>
